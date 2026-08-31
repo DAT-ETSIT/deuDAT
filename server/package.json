@@ -8,7 +8,11 @@
   "scripts": {
     "dev": "node --env-file=.env --watch ./bin/www.ts --trace-sync-io",
     "start": "node ./bin/www.ts",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+
+    "db:migrate": "sequelize-cli db:migrate",
+    "db:migrate:status": "sequelize-cli db:migrate:status",
+    "db:migrate:undo": "sequelize-cli db:migrate:undo"
   },
   "dependencies": {
     "cors": "^2.8.6",
