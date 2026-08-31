@@ -6,6 +6,21 @@ import { UnauthorizedError } from "./errorHandler.ts";
 
 const JWKS = createRemoteJWKSet(new URL(config.authentik.jwks_url));
 
+export type AuthClaims = {
+  iss: string;
+  sub: string;
+  "deudat-user"?: boolean;
+  "deudat-admin"?: boolean;
+
+  email?: string;
+  preferred_username?: string;
+  given_name?: string;
+  family_name?: string;
+  groups?: string[];
+
+  [key: string]: unknown;
+};
+
 export async function authenticate(
   req: Request,
   res: Response,
@@ -29,7 +44,7 @@ export async function authenticate(
       maxTokenAge: '10 minutes',
     });
 
-    console.log(payload);
+    res.locals.auth = payload as AuthClaims;
 
     next();
   } catch (error) {

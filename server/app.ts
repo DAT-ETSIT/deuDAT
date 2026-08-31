@@ -6,8 +6,11 @@ import cors from "cors";
 
 import config from "./config.json" with { type: "json" };
 
-import indexRouter from "./routes/index.ts";
+import publicRouter from "./routes/public.ts";
+import authRouter from "./routes/auth.ts";
+
 import errorHandler, { NotFoundError } from "./middleware/errorHandler.ts";
+import { authenticate } from "./middleware/authentication.ts";
 
 const app = express();
 
@@ -18,12 +21,12 @@ const logger = pino({
   transport:
     process.env.NODE_ENV !== "production"
       ? {
-          target: "pino-pretty",
-          options: {
-            colorize: true,
-            translateTime: "HH:MM:ss",
-          },
-        }
+        target: "pino-pretty",
+        options: {
+          colorize: true,
+          translateTime: "HH:MM:ss",
+        },
+      }
       : undefined,
 });
 
@@ -75,7 +78,11 @@ app.use(express.json({ limit: config.server.jsonLimit }));
 
 // --- ROUTES -----------------------------------------------------------------------
 
-app.use("/", indexRouter);
+app.use("/", publicRouter);
+app.use(authenticate);
+app.use("/", authRouter);
+
+
 
 // --- ERROR HANDLING --------------------------------------------------------------
 

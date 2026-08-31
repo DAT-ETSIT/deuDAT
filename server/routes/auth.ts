@@ -5,18 +5,6 @@ import { idSchema, testBodySchema, testQuerySchema, validateBody, validateParams
 
 const router = Router();
 
-router.get("/", (_req, res) => {
-  res.status(200).json({
-    message: "Welcome to the template API",
-  });
-});
-
-router.get("/health", (_req, res) => {
-  res.status(200).json({
-    message: "API is running smoothly",
-  });
-});
-
 router.get("/protected", authenticate, (_req, res) => {
   res.status(200).json({
     message: "You have access to this protected route",
@@ -31,11 +19,12 @@ router.post("/upload", uploadImage, (req, res) => {
 });
 
 router.post("/validation/:id", validateParams(idSchema), validateQuery(testQuerySchema), validateBody(testBodySchema), (req, res) => {
+  const validated = res.locals.validated!;
   res.status(200).json({
     message: "Validation successful",
-    validatedParams: res.locals.validated.params,
-    validatedQuery: res.locals.validated.query,
-    validatedBody: res.locals.validated.body,
+    validatedParams: validated.params,
+    validatedQuery: validated.query,
+    validatedBody: validated.body,
   });
 });
 
