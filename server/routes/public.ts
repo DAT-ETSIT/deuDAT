@@ -1,17 +1,10 @@
 import { Router } from "express";
 
+import { publicController } from "../controllers/publicController.ts";
+
 const router = Router();
 
-router.get("/", (_req, res) => {
-  res.status(200).json({
-    message: "Welcome to the deudat API",
-  });
-});
-
-router.get("/health", (_req, res) => {
-  res.status(200).json({
-    message: "API is running smoothly",
-  });
-});
+router.get("/", publicController.getApiInfo);
+router.get("/health", publicController.getApiHealth);
 
 export default router;

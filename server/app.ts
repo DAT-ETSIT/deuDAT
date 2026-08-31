@@ -7,10 +7,13 @@ import cors from "cors";
 import config from "./config.json" with { type: "json" };
 
 import publicRouter from "./routes/public.ts";
-import authRouter from "./routes/auth.ts";
+import productRouter from "./routes/product.ts";
+import wishlistRouter from "./routes/wishlist.ts";
+import userRouter from "./routes/user.ts";
 
 import errorHandler, { NotFoundError } from "./middleware/errorHandler.ts";
 import { authenticate } from "./middleware/authentication.ts";
+import { isUser } from "./middleware/authorization.ts";
 
 const app = express();
 
@@ -79,9 +82,10 @@ app.use(express.json({ limit: config.server.jsonLimit }));
 // --- ROUTES -----------------------------------------------------------------------
 
 app.use("/", publicRouter);
-app.use(authenticate);
-app.use("/", authRouter);
-
+app.use(authenticate, isUser);
+app.use("/products", productRouter);
+app.use("/wishlist", wishlistRouter);
+app.use("/users", userRouter);
 
 
 // --- ERROR HANDLING --------------------------------------------------------------
