@@ -1,0 +1,15 @@
+{
+  "authentik": {
+    "jwks_url": "https://authentik.etsit.da.upm.es/application/o/deudat/jwks/",
+    "issuer": "https://authentik.etsit.da.upm.es/application/o/deudat/",
+    "audience": "pT8pllChIZcqxZcRM5q82XBw0bHv3m9R6F5QCzX2"
+  },
+  "cors": {
+    "frontendUrl": "http://localhost:5173"
+  },
+  "server": {
+    "usingProxy": false,
+    "jsonLimit": "1mb",
+    "fileMBLimit": 5
+  }
+}

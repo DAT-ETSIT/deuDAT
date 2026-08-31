@@ -1,0 +1,24 @@
+{
+  "name": "deudat",
+  "version": "0.0.0",
+  "description": "An app to keep track of the products consumed from the fridge and the space's cleanliness for the telecomm students' delegation",
+  "private": true,
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DAT-ETSIT/deuDAT.git"
+  },
+  "author": "Inés García Ruiz",
+  "license": "GPL-3.0-or-later",
+  "bugs": {
+    "url": "https://github.com/DAT-ETSIT/deuDAT/issues"
+  },
+  "homepage": "https://github.com/DAT-ETSIT/deuDAT#readme",
+  "workspaces": [
+    "server"
+  ],
+  "scripts": {
+    "server:dev": "npm run dev --workspace server",
+    "server:start": "npm run start --workspace server",
+    "server:typecheck": "npm run typecheck --workspace server"
+  }
+}
