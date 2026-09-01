@@ -17,6 +17,7 @@ const Price = require('./fridge/price.ts')(sequelize);
 const Grocery = require('./fridge/grocery.ts')(sequelize);
 const PersonalPurchase = require('./fridge/personalPurchase.ts')(sequelize);
 const InventoryAdjustment = require('./fridge/inventoryAdjustment.ts')(sequelize);
+const Transfer = require('./fridge/transfer.ts')(sequelize);
 
 const WishlistPeriod = require('./fridge/wishlistPeriod.ts')(sequelize);
 const WishlistEntry = require('./fridge/wishlistEntry.ts')(sequelize);
@@ -132,6 +133,28 @@ User.hasMany(WishlistPeriod, {
 WishlistPeriod.belongsTo(User, {
     foreignKey: "closedById",
     as: "closedBy",
+});
+
+// User 1:N Transfer
+User.hasMany(Transfer, {
+    foreignKey: "fromUserId",
+    as: "sentTransfers",
+});
+
+Transfer.belongsTo(User, {
+    foreignKey: "fromUserId",
+    as: "fromUser",
+});
+
+// User 1:N Transfer
+User.hasMany(Transfer, {
+    foreignKey: "toUserId",
+    as: "receivedTransfers",
+});
+
+Transfer.belongsTo(User, {
+    foreignKey: "toUserId",
+    as: "toUser",
 });
 
 export default sequelize;
