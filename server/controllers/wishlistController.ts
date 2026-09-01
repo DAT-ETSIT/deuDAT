@@ -72,6 +72,36 @@ function removeUsersProductFromWishlistForPeriod(req: Request, res: Response) {
     });
 }
 
+function getWishlistPeriods(req: Request, res: Response) {
+    res.status(200).json({
+        message: "This is a placeholder function",
+    });
+}
+
+function getProductWishlistHistory(req: Request, res: Response) {
+    res.status(200).json({
+        message: "This is a placeholder function",
+    });
+}
+
+function createWishlistPeriod(req: Request, res: Response) {
+    res.status(200).json({
+        message: "This is a placeholder function",
+    });
+}
+
+function updateWishlistPeriod(req: Request, res: Response) {
+    res.status(200).json({
+        message: "This is a placeholder function",
+    });
+}
+
+function deleteWishlistPeriod(req: Request, res: Response) {
+    res.status(200).json({
+        message: "This is a placeholder function",
+    });
+}
+
 export const wishlistController = {
     getWishlist,
     getProductWishlist,
@@ -85,4 +115,9 @@ export const wishlistController = {
     getProductWishlistForPeriod,
     updateUsersProductWishlistForPeriod,
     removeUsersProductFromWishlistForPeriod,
+    getWishlistPeriods,
+    getProductWishlistHistory,
+    createWishlistPeriod,
+    updateWishlistPeriod,
+    deleteWishlistPeriod,
 };

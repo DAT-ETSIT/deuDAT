@@ -84,6 +84,66 @@ function getOtherUserWishlistForPeriod(req: Request, res: Response) {
     });
 }
 
+function deleteOtherUser(req: Request, res: Response) {
+    res.status(200).json({
+        message: "This is a placeholder function",
+    });
+}
+
+function getUserConsumptions(req: Request, res: Response) {
+    res.status(200).json({
+        message: "This is a placeholder function",
+    });
+}
+
+function getUserGroceries(req: Request, res: Response) {
+    res.status(200).json({
+        message: "This is a placeholder function",
+    });
+}
+
+function getUserTransfers(req: Request, res: Response) {
+    res.status(200).json({
+        message: "This is a placeholder function",
+    });
+}
+
+function createUserTransfer(req: Request, res: Response) {
+    res.status(200).json({
+        message: "This is a placeholder function",
+    });
+}
+
+function updateUserTransfer(req: Request, res: Response) {
+    res.status(200).json({
+        message: "This is a placeholder function",
+    });
+}
+
+function deleteUserTransfer(req: Request, res: Response) {
+    res.status(200).json({
+        message: "This is a placeholder function",
+    });
+}
+
+function getOtherUserConsumptions(req: Request, res: Response) {
+    res.status(200).json({
+        message: "This is a placeholder function",
+    });
+}
+
+function getOtherUserGroceries(req: Request, res: Response) {
+    res.status(200).json({
+        message: "This is a placeholder function",
+    });
+}
+
+function getOtherUserTransfers(req: Request, res: Response) {
+    res.status(200).json({
+        message: "This is a placeholder function",
+    });
+}
+
 export const userController = {
     updateUser,
     updateOtherUser,
@@ -99,4 +159,14 @@ export const userController = {
     getOtherUserWishlist,
     getOtherUserWishlistHistory,
     getOtherUserWishlistForPeriod,
+    deleteOtherUser,
+    getUserConsumptions,
+    getUserGroceries,
+    getUserTransfers,
+    createUserTransfer,
+    updateUserTransfer,
+    deleteUserTransfer,
+    getOtherUserConsumptions,
+    getOtherUserGroceries,
+    getOtherUserTransfers,
 };
