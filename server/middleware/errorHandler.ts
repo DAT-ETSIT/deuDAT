@@ -16,7 +16,7 @@ export const ErrorCode = {
 export type ErrorCode = (typeof ErrorCode)[keyof typeof ErrorCode];
 
 export type InputErrorDetail = {
-  field: string;
+  field: string | null; // Use null for root-level errors
   message: string;
 };
 
