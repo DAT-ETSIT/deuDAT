@@ -4,50 +4,53 @@ import { isAdmin } from "../middleware/authorization.ts";
 import { productController } from "../controllers/productController.ts";
 import { wishlistController } from "../controllers/wishlistController.ts";
 
+import { validateParams } from "../middleware/validate.ts";
+import { productIdSchema, periodIdSchema, productPriceIdsSchema, productGroceryIdsSchema, productAdjustmentIdsSchema, productConsumptionIdsSchema, productPeriodIdsSchema, productUserIdsSchema, productUserPeriodIdsSchema } from "../middleware/validate.ts";
+
 const router = Router();
 
 // All routes start by /products, specified in app.ts
 router.get("/", productController.getProducts);
-router.get("/:productId", productController.getProduct);
+router.get("/:productId", validateParams(productIdSchema), productController.getProduct);
 router.post("/", productController.createProduct);
-router.patch("/:productId", isAdmin, productController.updateProduct);
-router.delete("/:productId", isAdmin, productController.deleteProduct);
+router.patch("/:productId", isAdmin, validateParams(productIdSchema), productController.updateProduct);
+router.delete("/:productId", isAdmin, validateParams(productIdSchema), productController.deleteProduct);
 
-router.get("/:productId/price", productController.getProductPrice);
-router.get("/:productId/prices", productController.getProductPriceHistory);
-router.post("/:productId/price", isAdmin, productController.createProductPrice);
-router.put("/:productId/prices/:priceId", isAdmin, productController.updateProductPrice);
-router.delete("/:productId/prices/:priceId", isAdmin, productController.deleteProductPrice);
+router.get("/:productId/price", validateParams(productIdSchema), productController.getProductPrice);
+router.get("/:productId/prices", validateParams(productIdSchema), productController.getProductPriceHistory);
+router.post("/:productId/price", isAdmin, validateParams(productIdSchema), productController.createProductPrice);
+router.put("/:productId/prices/:priceId", isAdmin, validateParams(productPriceIdsSchema), productController.updateProductPrice);
+router.delete("/:productId/prices/:priceId", isAdmin, validateParams(productPriceIdsSchema), productController.deleteProductPrice);
 
-router.get("/:productId/inventory/movements", productController.getProductInventoryHistory);
-router.post("/:productId/inventory/grocery", productController.createProductGrocery);
-router.post("/:productId/inventory/consumption", productController.createProductConsumption);
-router.post("/:productId/inventory/adjustment", isAdmin, productController.createProductAdjustment);
-router.patch("/:productId/inventory/grocery/:groceryId", isAdmin, productController.updateProductGrocery);
-router.patch("/:productId/inventory/consumption/:consumptionId", isAdmin, productController.updateProductConsumption);
-router.patch("/:productId/inventory/adjustment/:adjustmentId", isAdmin, productController.updateProductAdjustment);
-router.delete("/:productId/inventory/grocery/:groceryId", isAdmin, productController.deleteProductGrocery);
-router.delete("/:productId/inventory/consumption/:consumptionId", isAdmin, productController.deleteProductConsumption);
-router.delete("/:productId/inventory/adjustment/:adjustmentId", isAdmin, productController.deleteProductAdjustment);
+router.get("/:productId/inventory/movements", validateParams(productIdSchema), productController.getProductInventoryHistory);
+router.post("/:productId/inventory/grocery", validateParams(productIdSchema), productController.createProductGrocery);
+router.post("/:productId/inventory/consumption", validateParams(productIdSchema), productController.createProductConsumption);
+router.post("/:productId/inventory/adjustment", isAdmin, validateParams(productIdSchema), productController.createProductAdjustment);
+router.patch("/:productId/inventory/grocery/:groceryId", isAdmin, validateParams(productGroceryIdsSchema), productController.updateProductGrocery);
+router.patch("/:productId/inventory/consumption/:consumptionId", isAdmin, validateParams(productConsumptionIdsSchema), productController.updateProductConsumption);
+router.patch("/:productId/inventory/adjustment/:adjustmentId", isAdmin, validateParams(productAdjustmentIdsSchema), productController.updateProductAdjustment);
+router.delete("/:productId/inventory/grocery/:groceryId", isAdmin, validateParams(productGroceryIdsSchema), productController.deleteProductGrocery);
+router.delete("/:productId/inventory/consumption/:consumptionId", isAdmin, validateParams(productConsumptionIdsSchema), productController.deleteProductConsumption);
+router.delete("/:productId/inventory/adjustment/:adjustmentId", isAdmin, validateParams(productAdjustmentIdsSchema), productController.deleteProductAdjustment);
 
 router.get("/wishlist", wishlistController.getWishlist);
 router.get("/wishlist/periods", wishlistController.getWishlistPeriods);
 router.get("/wishlist/history/:periodId", wishlistController.getWishlistForPeriod);
 router.post("/wishlist/periods", isAdmin, wishlistController.createWishlistPeriod);
-router.patch("/wishlist/periods/:periodId", isAdmin, wishlistController.updateWishlistPeriod);
-router.delete("/wishlist/periods/:periodId", isAdmin, wishlistController.deleteWishlistPeriod);
+router.patch("/wishlist/periods/:periodId", isAdmin, validateParams(periodIdSchema), wishlistController.updateWishlistPeriod);
+router.delete("/wishlist/periods/:periodId", isAdmin, validateParams(periodIdSchema), wishlistController.deleteWishlistPeriod);
 
-router.get("/:productId/wishlist", wishlistController.getProductWishlist);
-router.get("/:productId/wishlist/history", wishlistController.getProductWishlistHistory);
-router.get("/:productId/wishlist/history/:periodId", wishlistController.getProductWishlistForPeriod);
+router.get("/:productId/wishlist", validateParams(productIdSchema), wishlistController.getProductWishlist);
+router.get("/:productId/wishlist/history", validateParams(productIdSchema), wishlistController.getProductWishlistHistory);;
+router.get("/:productId/wishlist/history/:periodId", validateParams(productPeriodIdsSchema), wishlistController.getProductWishlistForPeriod);
 
-router.post("/:productId/wishlist", wishlistController.addProductToWishlist);
-router.patch("/:productId/wishlist", wishlistController.updateProductWishlist);
-router.delete("/:productId/wishlist", wishlistController.removeProductFromWishlist);
-router.patch("/:productId/wishlist/users/:userid", isAdmin, wishlistController.updateUsersProductWishlist);
-router.delete("/:productId/wishlist/users/:userid", isAdmin, wishlistController.removeUsersProductFromWishlist);
-router.patch("/:productId/wishlist/history/:periodId/users/:userid", isAdmin, wishlistController.updateUsersProductWishlistForPeriod);
-router.delete("/:productId/wishlist/history/:periodId/users/:userid", isAdmin, wishlistController.removeUsersProductFromWishlistForPeriod);
+router.post("/:productId/wishlist", validateParams(productIdSchema), wishlistController.addProductToWishlist);
+router.patch("/:productId/wishlist", validateParams(productIdSchema), wishlistController.updateProductWishlist);
+router.delete("/:productId/wishlist", validateParams(productIdSchema), wishlistController.removeProductFromWishlist);
+router.patch("/:productId/wishlist/users/:userid", isAdmin, validateParams(productUserIdsSchema), wishlistController.updateUsersProductWishlist);
+router.delete("/:productId/wishlist/users/:userid", isAdmin, validateParams(productUserIdsSchema), wishlistController.removeUsersProductFromWishlist);
+router.patch("/:productId/wishlist/history/:periodId/users/:userid", isAdmin, validateParams(productUserPeriodIdsSchema), wishlistController.updateUsersProductWishlistForPeriod);
+router.delete("/:productId/wishlist/history/:periodId/users/:userid", isAdmin, validateParams(productUserPeriodIdsSchema), wishlistController.removeUsersProductFromWishlistForPeriod);
 
 
 
