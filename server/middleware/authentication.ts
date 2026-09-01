@@ -9,14 +9,14 @@ const JWKS = createRemoteJWKSet(new URL(config.authentik.jwks_url));
 export type AuthClaims = {
   iss: string;
   sub: string;
-  "deudat-user"?: boolean;
-  "deudat-admin"?: boolean;
+  "deudat-user": boolean;
+  "deudat-admin": boolean;
 
-  email?: string;
-  preferred_username?: string;
-  given_name?: string;
-  family_name?: string;
-  groups?: string[];
+  email: string;
+  preferred_username: string;
+  given_name: string;
+  family_name: string;
+  groups: string[];
 
   [key: string]: unknown;
 };
