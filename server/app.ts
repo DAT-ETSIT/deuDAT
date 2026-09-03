@@ -64,7 +64,7 @@ app.use(helmet());
 
 var corsOptions = {
   origin: config.cors.frontendUrl,
-  methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
+  methods: ["GET", "POST", "PUT", "PATCH", "DELETE"],
   allowedHeaders: ["Content-Type", "Authorization"],
 };
 app.use(cors(corsOptions));
